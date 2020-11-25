@@ -15,7 +15,7 @@ public class EnderecoRequest {
 
 	private String bairo;
 
-	private String UF;
+	private String Uf;
 
 	private Integer numero;
 

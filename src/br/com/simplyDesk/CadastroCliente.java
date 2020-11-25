@@ -7,6 +7,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -15,6 +16,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
@@ -233,42 +235,43 @@ public class CadastroCliente extends JFrame {
 		contentPane.add(textFieldTelefone);
 		
 		JButton botaoCadastrarCliente = new JButton("Cadastrar");
+		botaoCadastrarCliente.setForeground(SystemColor.menuText);
+		botaoCadastrarCliente.setBackground(SystemColor.textHighlight);
 		botaoCadastrarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String sexo = rdbtnMasculino.isSelected() ? "M" : "F";
-				
-				ClienteRequest cliente = new ClienteRequest();
-				
-				EnderecoRequest endereco = new EnderecoRequest();
-				
-				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-				
-				endereco.setBairo(textFieldBairro.getText());
-				endereco.setCep(textFieldCep.getText());
-				endereco.setCidade(textFieldCidade.getText());
-				endereco.setComplemento(textFieldComplemento.getText());
-				endereco.setLogradouro(textFieldLogradouro.getText());
-				endereco.setNumero(
-						(textFieldNumero.getText() != null && !textFieldNumero.getText().isEmpty()) ? Integer.valueOf(textFieldNumero.getText()) : 0
-						);
-				endereco.setUF(textFieldUf.getText());
-				
-				cliente.setCnpjCpf(textFieldCnpjCpf.getText());
-				cliente.setNome(textFieldNomeCompleto.getText());
-				cliente.setEndereco(endereco);
-				cliente.setEmail(textFieldEmail.getText());
-				cliente.setSexo(sexo);
-				cliente.setTelefone(textFieldTelefone.getText());
-
-				//System.out.println(formato.format(textFieldDataNascimento.getText()));
-
-				cliente.setDataNascimento(textFieldDataNascimento.getText());
-
-
-				System.out.println(cliente.getDataNascimento());
-				
-				doPost("http://localhost:8080/cliente", cliente);
+				try{
+					String sexo = rdbtnMasculino.isSelected() ? "M" : "F";
+					
+					ClienteRequest cliente = new ClienteRequest();
+					
+					EnderecoRequest endereco = new EnderecoRequest();
+					
+					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+					
+					endereco.setBairo(textFieldBairro.getText());
+					endereco.setCep(textFieldCep.getText());
+					endereco.setCidade(textFieldCidade.getText());
+					endereco.setComplemento(textFieldComplemento.getText());
+					endereco.setLogradouro(textFieldLogradouro.getText());
+					endereco.setNumero(
+							(textFieldNumero.getText() != null && !textFieldNumero.getText().isEmpty()) ? Integer.valueOf(textFieldNumero.getText()) : 0
+							);
+					endereco.setUf(textFieldUf.getText());
+					
+					cliente.setCnpjCpf(textFieldCnpjCpf.getText());
+					cliente.setNome(textFieldNomeCompleto.getText());
+					cliente.setEndereco(endereco);
+					cliente.setEmail(textFieldEmail.getText());
+					cliente.setSexo(sexo);
+					cliente.setTelefone(textFieldTelefone.getText());				
+					cliente.setDataNascimento(textFieldDataNascimento.getText());
+					
+					doPost("http://localhost:8080/cliente", cliente);			
+					JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO!");
+				}catch(Exception e) {
+					JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR CLIENTE!");
+				}
 			}
 		});
 		botaoCadastrarCliente.setFont(new Font("Arial", Font.BOLD, 14));
@@ -312,6 +315,7 @@ public class CadastroCliente extends JFrame {
 		}catch(IOException e) {
 			e.printStackTrace();
 			System.out.println("ERROR: \n"+e.getMessage());
+			throw new RuntimeException(e.getMessage());
 		}
 		
 		return jsonRetorno;

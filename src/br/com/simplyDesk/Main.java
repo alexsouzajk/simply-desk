@@ -34,6 +34,10 @@ import java.awt.CardLayout;
 import javax.swing.JSplitPane;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
+import javax.swing.JTable;
+import java.awt.Canvas;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class Main extends JFrame {
 
@@ -67,8 +71,9 @@ public class Main extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\Design\\Simply\\Telas\\e1804e71-611f-4101-be64-e0c75202983e.jpg"));
 		setTitle("Simply");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 674, 394);
+		setBounds(100, 100, 552, 386);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -79,90 +84,38 @@ public class Main extends JFrame {
 		btnCliente.setBackground(SystemColor.desktop);
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
 				OpcoesCliente opcoesCliente = new OpcoesCliente();
 				opcoesCliente.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-				opcoesCliente.setVisible(true);
-				
-				// JOptionPane.showMessageDialog(null, "ABRI O JOPTIONPANE PORRA1!");
-
-				/*try {
-					URL url = new URL("http://localhost:8080/contas");
-
-					HttpURLConnection con = con = (HttpURLConnection) url.openConnection();
-
-					if (con.getResponseCode() != 200) {
-						throw new RuntimeException("HTTP error code : " + con.getResponseCode());
-					}
-					BufferedReader br = new BufferedReader(new InputStreamReader((con.getInputStream())));
-					
-					StringBuilder builder = new StringBuilder();
-					
-					br.lines().forEach(linha->{
-						builder.append(linha);
-					});
-					
-					System.out.println(builder.toString());
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-					System.out.println("ERROR: \n"+e.getMessage());
-				}*/
-				
-				/*Gson gson = new Gson();
-				
-				BancosEntityRequest banco = new BancosEntityRequest();
-				banco.setCodigo(1L);
-				
-				ClienteRequest cliente = new ClienteRequest();
-				cliente.setId(1L);
-				
-				ClienteContaRequest conta = new ClienteContaRequest();
-				conta.setCodigoBanco(banco);
-				conta.setIdCliente(cliente);
-				conta.setCodigoAgencia(0001L);
-				conta.setCodigoConta(1476547812L);
-				
-				String json = gson.toJson(conta);
-				try {
-					OkHttpClient client = new OkHttpClient();
-
-					String url = "http://localhost:8080/contas";
-
-					Request.Builder builder = new Request.Builder();
-
-					builder.url(url);
-
-					MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
-					
-					RequestBody body = RequestBody.create(mediaType, json);
-					
-					builder.post(body);
-
-					Request request = builder.build();
-
-					Response response = client.newCall(request).execute();
-
-					String jsonDeResposta = response.body().string();
-					
-					System.out.println(jsonDeResposta);
-				}catch(IOException e) {
-					e.printStackTrace();
-					System.out.println("ERROR: \n"+e.getMessage());
-				}
-				*/
-				
-				
+				opcoesCliente.setVisible(true);			
 			}
 		});
-		btnCliente.setBounds(10, 67, 180, 38);
+		btnCliente.setBounds(10, 115, 180, 38);
 		contentPane.add(btnCliente);
 		
 		JButton btnRelatorios = new JButton("Relat\u00F3rios");
+		btnRelatorios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Relatorios telaRelatorios = new Relatorios();
+				telaRelatorios.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				telaRelatorios.setVisible(true);
+			}
+		});
 		btnRelatorios.setForeground(SystemColor.text);
 		btnRelatorios.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnRelatorios.setBackground(Color.BLACK);
-		btnRelatorios.setBounds(10, 127, 180, 38);
+		btnRelatorios.setBounds(10, 175, 180, 38);
 		contentPane.add(btnRelatorios);
+		
+		JLabel lblNewLabel = new JLabel("Bem vindo ao Simply");
+		lblNewLabel.setForeground(new Color(0, 128, 0));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel.setBounds(10, 11, 233, 38);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblEscolhaAOpo = new JLabel("Escolha a op\u00E7\u00E3o desejada:");
+		lblEscolhaAOpo.setForeground(new Color(0, 191, 255));
+		lblEscolhaAOpo.setFont(new Font("Arial", Font.BOLD, 14));
+		lblEscolhaAOpo.setBounds(10, 60, 233, 38);
+		contentPane.add(lblEscolhaAOpo);
 	}
 }

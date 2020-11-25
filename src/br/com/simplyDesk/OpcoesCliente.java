@@ -62,6 +62,13 @@ public class OpcoesCliente extends JFrame {
 		contentPane.add(btnCadastrarCliente);
 		
 		JButton btnConsultarCliente = new JButton("CONSULTAR");
+		btnConsultarCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+				TelaCliente telaCliente = new TelaCliente();
+				telaCliente.setVisible(true);
+			}
+		});
 		btnConsultarCliente.setBackground(SystemColor.desktop);
 		btnConsultarCliente.setForeground(SystemColor.text);
 		btnConsultarCliente.setFont(new Font("Arial", Font.BOLD, 16));
